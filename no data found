@@ -1,0 +1,9 @@
+DECLARE
+v_name employees.name%TYPE;
+BEGIN
+SELECT name INTO v_name FROM employees WHERE id = 999;
+DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+DBMS_OUTPUT.PUT_LINE('No employee found with the given ID');
+END;
