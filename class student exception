@@ -1,0 +1,21 @@
+DECLARE
+CURSOR student_cur IS SELECT name FROM students WHERE grade = 'First Class';
+v_name students.name%TYPE;
+no_record EXCEPTION;
+rec_count NUMBER := 0;
+BEGIN
+OPEN student_cur;
+LOOP
+FETCH student_cur INTO v_name;
+EXIT WHEN student_cur%NOTFOUND;
+rec_count := rec_count + 1;
+DBMS_OUTPUT.PUT_LINE('Student: ' || v_name);
+END LOOP;
+CLOSE student_cur;
+IF rec_count = 0 THEN
+RAISE no_record;
+END IF;
+EXCEPTION
+WHEN no_record THEN
+DBMS_OUTPUT.PUT_LINE('No Record Found');
+END;
